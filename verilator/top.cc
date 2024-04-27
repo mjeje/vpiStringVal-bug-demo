@@ -43,16 +43,16 @@ int main(int argc, char** argv) {
     VerilatedContext* contextp = new VerilatedContext;
     contextp->commandArgs(argc, argv);
     Vtop* top = new Vtop{contextp,""};
-    contextp->internalsDump();
     top->eval();
 
-    char test3str[3] = {0x20,0x00,0x00};
-    char test4str[3] = {0x00,0x20,0x00};
+    char test3str[3] = {0xab,0x00,0x00};
+    char test4str[3] = {0x00,0xab,0x00};
     set_value("top.test3", test3str);
     set_value("top.test4", test4str);
 
     top->eval();
 
+    u_int16_t test0 = get_value("top.test0");
     u_int16_t test1 = get_value("top.test1");
     u_int16_t test2 = get_value("top.test2");
     u_int16_t test3 = get_value("top.test3");
@@ -62,10 +62,11 @@ int main(int argc, char** argv) {
     delete top;
     delete contextp;
 
-    printf("vpi: test1=%04x\n",test1);
-    printf("vpi: test2=%04x\n",test2);
-    printf("vpi: test3=%04x\n",test3);
-    printf("vpi: test4=%04x\n",test4);
+    printf("vpi:     test0=%04x\n",test0);
+    printf("vpi:     test1=%04x\n",test1);
+    printf("vpi:     test2=%04x\n",test2);
+    printf("vpi:     test3=%04x\n",test3);
+    printf("vpi:     test4=%04x\n",test4);
 
     assert(test1 == 0x2000);
     assert(test2 == 0x0020);
