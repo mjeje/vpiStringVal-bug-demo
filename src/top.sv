@@ -1,15 +1,17 @@
 module top;
 /* verilator lint_off UNUSEDSIGNAL */
-reg [15:0] test0,test1,test2,test3,test4;
+reg unsigned [15:0] test0,test1,test2,test3,test4;
 
 initial begin
   test0 = 16'h0000;
   test1 = 16'hab00;
   test2 = 16'h00ab;
-  test3 = 16'hffff;
-  test4 = 16'hffff;
+  test3 = 16'heeee;
+  test4 = 16'heeee;
+  `ifndef VERILATOR
   #1;
   #1 $finish;
+  `endif
 end
 
 final begin
